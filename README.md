@@ -151,19 +151,24 @@ CONFIGS/CONFIG_CREG025.L75/CREG025.L75-NEMO420
     ├── SAS
     └── TOP
 ```
-
-The most important sub-directories are arch & src/MY_SRC:<br>
+### 2-1 Starting from an existing configuration <br>
+The following relies on an existing configuration, but files can be downloaded from anywhere <br>
+Download files from an exsiting configuration, create a directory MYDIR (anywhere, it's not important since you can remove it after getting files from it), go into this new directory and clone the associated configuration : <br>
+```
+cd MYDIR
+git clone https://github.com/ctalandi/EXPS-RUNNING.git 
+```
+The most important sub-directories in the tree above are arch & src/MY_SRC:<br>
 	- arch: put there the arch-X64_DATARMORMPI.fcm file which includes the required compilation options specific to Datarmor.<br>
 ```
-cp /home1/datahome/ctalandi/2SHARE/4EMMA/RUNNING-CREG025.L75/arch-X64_DATARMORMPI.fcm $UDIR/CONFIG_CREG025.L75/CREG025.L75-NEMO420/arch/.
+cp MYDIR//RUNNING-CREG025.L75/arch-X64_DATARMORMPI.fcm $UDIR/CONFIG_CREG025.L75/CREG025.L75-NEMO420/arch/.
 ```
+Then edit this file and set the variable %XIOS_HOME to the appropriate path for the XIOS library, either yours if you compiled it or leave the default one <br>  
 
 	- src/MY_SRC: put there the specific modules that are modified against the NEMO reference code<br>
 ```
-cd  $UDIR/CONFIG_CREG025.L75/CREG025.L75-NEMO420/src/MY_SRC
-cp /home1/datahome/ctalandi/2SHARE/4EMMA/RUNNING-CREG025.L75/NEMO420_MY_SRC_20201110.tar .
-tar xvf NEMO420_MY_SRC_20201110.tar
-rm -f NEMO420_MY_SRC_20201110.tar
+cd $UDIR/CONFIG_CREG025.L75/CREG025.L75-NEMO420/src/MY_SRC
+cp MYDIR//RUNNING-CREG025.L75/MY_SRC/*90 .
 ```
 
 Control that the following FORTRAN modules are present:<br>
@@ -176,8 +181,8 @@ iceupdate.F90  lbclnk.F90                nemogcm.F90                sbc_oce.F90 
 
 Then last step before the compilation, copy the makefile & the CPP.keys files :<br>
 ```
-cp /home1/datahome/ctalandi/2SHARE/4EMMA/RUNNING-CREG025.L75/makefile  $UDIR/CONFIG_CREG025.L75/CREG025.L75-NEMO420/.
-cp /home1/datahome/ctalandi/2SHARE/4EMMA/RUNNING-CREG025.L75/CPP.keys  $UDIR/CONFIG_CREG025.L75/CREG025.L75-NEMO420/.
+cp MYDIR/RUNNING-CREG025.L75/makefile  $UDIR/CONFIG_CREG025.L75/CREG025.L75-NEMO420/.
+cp MYDIR/RUNNING-CREG025.L75/CPP.keys  $UDIR/CONFIG_CREG025.L75/CREG025.L75-NEMO420/.
 ```
 The makefile set all usefull information for the compilation while the CPP.keys file, set the cpp keys specific to this experiment.<br>
 
@@ -246,7 +251,7 @@ To handle numerical experiments, few files, scripts have to be installed as it i
 The result should be something similar to this:<br>
 ```
 cd $PDIR/RUN_CREG025.L75/CREG025.L75-NEMO420/CTL
-cp -R /home1/datahome/ctalandi/2SHARE/4EMMA/RUNNING-CREG025.L75/RUNS/* .
+cp -R MYDIR/RUNNING-CREG025.L75/RUNS/* .
 ```
 
 The following files/folder should be copied :<br>
