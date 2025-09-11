@@ -1,5 +1,5 @@
 # EXPS-RUNNING
-Gather all scripts and jobs used to perform a yearly simulation on Datarmor based on NEMO release 4.2<br>
+Gather all scripts and jobs used to perform a yearly simulation on Datarmor based on NEMO release 4.2.0<br>
 It relies on the DCM (DRAKKAR CONFIGURATION MANAGER) to both create, compile a configuration as well as submit a yearly simulation.<br>
 
 1 - DCM installation:<br> 
@@ -7,23 +7,25 @@ It relies on the DCM (DRAKKAR CONFIGURATION MANAGER) to both create, compile a c
 3 - Launch a numerical experiment.<br>
   
 ---
-##1 DCM installation <br>
-The following note rely on the NEMO 4.2.0 official release. To do only once. <br>
+---
+
+## 1- DCM installation <br>
+The following note rely on the NEMO 4.2.0 official release. But it can be applied the same way to an other release. To do only once. <br>
 
 DCM stands for Drakkar Configuration manager, it allows to  1) build a configuration, 2) compile it and 3) submit an experiment <br>
-A complete documentation is available here: https://github.com/meom-group/DCM <br>
+A complete documentation is available here: https://github.com/ctalandi/DCM-MASTER.git  <br>
 
-Somewhere in your Datarmor HOME, create a new directory, let's call the full path of this directory ZZMYDIR  in the following. <br>
+Somewhere in your Datarmor HOME, create a new directory, let's call the full path of this directory DCM in the following. <br>
 
-Go into this new directory and copy the following tarball file DCM_4.0_20221110.tar then expand it : <br>
+Go into this new directory and clone the associated branch : <br>
 ```
-cd ZZMYDIR
-git clone https://github.com/meom-group/DCM.git DCM_4.0 
+cd DCM
+git clone --branch 4.2.0 https://forge.nemo-ocean.eu/nemo/nemo.git DCM_4.2.0
 ```
 
-The  DCM_4.0 sub-folders structure look like this: <br>
+The  DCM_4.2.0 sub-folders structure look like this: <br>
 ```
-DCM_4.0/
+DCM_4.2.0/
 ├── DCMTOOLS
 │   ├── bin
 │   ├── DRAKKAR
@@ -32,26 +34,28 @@ DCM_4.0/
 │   │   └── nemo_4.2.0
 │   └── templates
 ├── DOC
+├── MODULES
 ├── License
 └── RUNTOOLS
 ```
 
-The NEMO 4.2.0 official release nemo_4.2.0  code sources are located under the NEMOREF sub-folder as shown in the structure above. <br>
+The NEMO 4.2.0 official release nemo_4.2.0 code sources has to be downloaded under the NEMOREF sub-folder as shown in the structure above. <br>
+Execute the shell script getnemoref.sh to download it. <br>
+The file xios_revision.md gives information about how the get this XIOS library. <br>
 
-Still in your home directory, at the root  of your login, create a directory called modules  if you do not have  one and create the DCM  folder <br>
-Then copy in it the file called 4.2.0 from there:  /home1/datahome/ctalandi/2SHARE/4EMMA/RUNNING-CREG025.L75 <br>
+Still in your home directory, at the root of your login, create a directory called modules if you do not have one and create the DCM subfolder <br>
+Then copy in it the file called 4.2.0 from where you've just clone the DCM_4.2.0 structure: <br>
 ```
 mkdir -p  modules/DCM
-cp   /home1/datahome/ctalandi/2SHARE/4EMMA/RUNNING-CREG025.L75/4.2.0  .
+cp   DCM/DCM_4.2.0/MODULES/4.2.0  .
 ```
-Open it, and replace the name  ZZMYDIR by the full path you have just created  above <br>
+Open it, and replace the name ZZMYDIR by the full path you have just created above <br>
 
-In the head of your .bashrc file add the 2 lines below and change the yourlogin word: <br>
+In the header of your .bashrc file add the 2 lines below and change the yourlogin word (as the root path as well, i.e. /hom1/datahome if different in your case): <br>
 ```
 source /usr/share/Modules/3.2.10/init/bash
 export MODULEPATH="$MODULEPATH:/home1/datahome/yourlogin/modules:.:"
 ```
-
 And elsewhere in your .bashrc file, add the following lines: <br>
 ```
 # NEMO v4.2.0
@@ -68,12 +72,12 @@ export WORKDIR=$SCRATCH
 - UDIR is the folder where the configuration will be built and from where the compilation process is launched <br>
 - PDIR corresponds to the area from which the simulation is handled <br>
 
-Then, last step of this installation, source your .bashrc  to take into account the new changes  above <br>
+Then, last step of this installation, source your .bashrc  to take into account the new changes above <br>
 ```
 source .bashrc
 ```
 
-Now type the command  mkconfdir  to test if it works, you should get a similar result: <br>
+Now type the command  mkconfdir  to test if it works, you should get a result close to the following one: <br>
 ```
 (base) ctalandi@datarmor2 /home1/scratch/ctalandi $ mkconfdir
 USAGE : mkconfdir [-h] [-v]  CONFIG CASE
@@ -90,28 +94,29 @@ PURPOSE : This script is used to create the skeleton of a new NEMO config
 ```
 
 ---
+---
 
-#2  Build a new configuration environment using DCM <br>
-This requires to install 2  dedicated sub-directories under master CONFIG & RUNS  directories as follows: <br>
-For instance, to build a new experiment called NEMO420  (in this exemple) that relies on the CREG025.L75 configuration, <br>
+## 2-  Build a new configuration environment using DCM <br>
+This requires to install 2 dedicated sub-directories under master CONFIG & RUNS directories as follows: <br>
+For instance, to build a new experiment called NEMO420 (in this exemple) that relies on the CREG025.L75 configuration, <br>
 use the following command: <br>
 ```
 mkconfdir CREG025.L75 NEMO420
 ```
-CAUTION: make sure that  the module DCM/4.2.0 is loaded before lanching this command, type module list <br>
+CAUTION: make sure that  the module DCM/4.2.0 is loaded before lanching this command, type module list to check that<br>
 
 This command creates 2 dedicated folders: <br>
-- one dedicated to the NEMO code source  and from which the compilation is handled  under the master CONFIG folder <br>
-- one  where the user can launch a numerical experiment  under the master RUNS folder <br>
+- one dedicated to the NEMO code source and from which the compilation is handled under the master CONFIG folder <br>
+- one where the user can launch a numerical experiment under the master RUNS folder <br>
 	These 2 folders look like this: <br>
-- Under the  PDIR  directory: <br>
+- Under the PDIR directory (set in your .bashrc, see above): <br>
 ```
 RUNS/RUN_CREG025.L75/CREG025.L75-NEMO420
 ├── CTL
 └── EXE
 ```
 
-- Under the UDIR directory (previously set in your .bashrc file):<br>
+- And under the UDIR directory (previously set in your .bashrc file):<br>
 ```
 CONFIGS/CONFIG_CREG025.L75/CREG025.L75-NEMO420
 ── arch
@@ -128,7 +133,7 @@ CONFIGS/CONFIG_CREG025.L75/CREG025.L75-NEMO420
     └── TOP
 ```
 
-Now,  the user can  fill these directories as it is explained below.<br>
+Now, the user can fill these directories as it is explained below.<br>
 
 Under the UDIR directory (previously set in your .bashrc file):<br>
 ```
@@ -148,7 +153,7 @@ CONFIGS/CONFIG_CREG025.L75/CREG025.L75-NEMO420
 ```
 
 The most important sub-directories are arch & src/MY_SRC:<br>
-	- arch: put there the arch-X64_DATARMORMPI.fcm  file . It  corresponds to the required compilation options specific to Datarmor.<br>
+	- arch: put there the arch-X64_DATARMORMPI.fcm file which includes the required compilation options specific to Datarmor.<br>
 ```
 cp /home1/datahome/ctalandi/2SHARE/4EMMA/RUNNING-CREG025.L75/arch-X64_DATARMORMPI.fcm $UDIR/CONFIG_CREG025.L75/CREG025.L75-NEMO420/arch/.
 ```
@@ -169,7 +174,7 @@ iceistate.F90  lbc_lnk_call_generic.h90  mpp_nfd_generic.h90        sbcmod.F90  
 iceupdate.F90  lbclnk.F90                nemogcm.F90                sbc_oce.F90  tradmp.F90
 ```
 
-Then last step before  the compilation,  copy the makefile & the CPP.keys files :<br>
+Then last step before the compilation, copy the makefile & the CPP.keys files :<br>
 ```
 cp /home1/datahome/ctalandi/2SHARE/4EMMA/RUNNING-CREG025.L75/makefile  $UDIR/CONFIG_CREG025.L75/CREG025.L75-NEMO420/.
 cp /home1/datahome/ctalandi/2SHARE/4EMMA/RUNNING-CREG025.L75/CPP.keys  $UDIR/CONFIG_CREG025.L75/CREG025.L75-NEMO420/.
@@ -223,9 +228,9 @@ CAUTION: make sure that  the following 3 modules are loaded before launching the
 - NETCDF-test/4.3.3.1-mpt217-intel2018<br>
 - intel-fc-18/18.0.1.163<br>
 - mpt/2.17<br>
-if not, type > module load NETCDF-test/4.3.3.1-mpt217-intel2018  or better add it once for all in your .bashrc file<br>
+if not, type > module load NETCDF-test/4.3.3.1-mpt217-intel2018 or better add it once for all in your .bashrc file<br>
 
-At the end of the compilation , the NEMO executable should be stored in the EXE sub-directory as detailed below.<br>
+At the end of the compilation, the NEMO executable should be stored in the EXE sub-directory as detailed below.<br>
 
 Under the  PDIR  directory:<br>
 ```
@@ -256,8 +261,9 @@ CREG025.L75-NEMO420.db           namelist.CREG025.L75-NEMO420  namelist_ref     
 Other files are detailed in the next section<br>
 
 ---
+---
 
-#3 Launch a numerical experiment.<br>
+## 3- Launch a numerical experiment.<br>
 No details are given about what/how to set physics/numerics in the NEMO namelists herefater, only how to perform a simulation.<br>
 
 Move into the simulation manager folder:<br>
@@ -267,7 +273,7 @@ cd $PDIR/RUN_CREG025.L75/CREG025.L75-NEMO420/CTL
 
 Only 2 files should be modified to perform a simulation:<br>
 -  CREG025.L75-NEMO420.db<br>
-The starting date of the simulation is set through the  nn_date0 parameter in the ocean namelist, here 1979 January the 1st.<br>
+The starting date of the simulation is set through the nn_date0 parameter in the ocean namelist, here 1979 January the 1st.<br>
 The duration of 1 simulation is based on the total number of model iterations that is set in the CREG025.L75-NEMO420.db file<br>
 For instance:<br>
 ```
@@ -313,5 +319,5 @@ To control the job status:<br>
 qstat -u yourlogin
 ```
 
-1 year-long  simulation requires ~ 4h45 elapsed time with a 5d mean output frequency.<br>
+1 year-long  simulation requires ~4h45 elapsed time with a 5d mean output frequency.<br>
 
