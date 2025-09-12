@@ -15,6 +15,8 @@ The following note rely on the NEMO 4.2.0 official release. But it can be applie
 DCM stands for Drakkar Configuration manager, it allows to  1) build a configuration, 2) compile it and 3) submit an experiment <br>
 A complete documentation is available here: https://github.com/ctalandi/DCM-MASTER.git  <br>
 
+This step relies on the 2 following components: NEMO GCM & XIOS library (to manage I/O); the XIOS library must be compiled before any NEMO compilation <br>
+
 Somewhere in your Datarmor HOME, create a new directory, let's call the full path of this directory DCM in the following. <br>
 
 Go into this new directory and clone the associated branch : <br>
@@ -229,11 +231,12 @@ Then launch the compilation itself:<br>
 ```
 make
 ```
-CAUTION: make sure that  the following 3 modules are loaded before launching the compilation:<br>
+CAUTION: make sure that the following 3 modules are loaded before launching the compilation:<br>
 - NETCDF-test/4.3.3.1-mpt217-intel2018<br>
 - intel-fc-18/18.0.1.163<br>
 - mpt/2.17<br>
 if not, type > module load NETCDF-test/4.3.3.1-mpt217-intel2018 or better add it once for all in your .bashrc file<br>
+NB: These librairies might be evolve depending the NEMO version used, you should adapt them to your own computing environment. <br>
 
 At the end of the compilation, the NEMO executable should be stored in the EXE sub-directory as detailed below.<br>
 
