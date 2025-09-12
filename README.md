@@ -40,7 +40,7 @@ DCM_4.2.0/
 ```
 
 The NEMO 4.2.0 official release nemo_4.2.0 code sources has to be downloaded under the NEMOREF sub-folder as shown in the structure above. <br>
-Execute the shell script getnemoref.sh to download it. <br>
+Execute the shell script getnemoref.sh to download it. The official [NEMO](https://sites.nemo-ocean.io/user-guide/) web site where to get complete information about NEMO, documentation, how to etc ... <br>
 The file xios_revision.md gives information about how the get this XIOS library. <br>
 
 Still in your home directory, at the root of your login, create a directory called modules if you do not have one and create the DCM subfolder <br>
