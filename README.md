@@ -9,7 +9,7 @@ It relies on the DCM (DRAKKAR CONFIGURATION MANAGER) to both create, compile a c
 ---
 ---
 
-## 1- DCM installation <br>
+## 1- DCM installation <br> __ TO DO ONLY ONCE UNDER YOUR LOGIN __
 The following note rely on the NEMO 4.2.0 official release. But it can be applied the same way to an other release. To do only once. <br>
 
 DCM stands for Drakkar Configuration manager, it allows to  1) build a configuration, 2) compile it and 3) submit an experiment <br>
