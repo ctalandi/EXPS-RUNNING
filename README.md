@@ -22,7 +22,7 @@ Somewhere in your Datarmor HOME, create a new directory, let's call the full pat
 Go into this new directory and clone the associated branch : <br>
 ```
 cd DCM
-git clone --branch 4.2.0 https://github.com/ctalandi/DCM-MASTER.git DCM_4.2.0
+git clone --branch DCM_4.2.0 https://github.com/ctalandi/DCM-MASTER.git DCM_4.2.0
 ```
 
 The  DCM_4.2.0 sub-folders structure look like this: <br>
