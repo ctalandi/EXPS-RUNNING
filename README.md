@@ -22,7 +22,7 @@ Somewhere in your Datarmor HOME, create a new directory, let's call the full pat
 Go into this new directory and clone the associated branch : <br>
 ```
 cd DCM
-git clone --branch 4.2.0 https://forge.nemo-ocean.eu/nemo/nemo.git DCM_4.2.0
+git clone --branch 4.2.0 https://github.com/ctalandi/DCM-MASTER.git DCM_4.2.0
 ```
 
 The  DCM_4.2.0 sub-folders structure look like this: <br>
@@ -51,7 +51,7 @@ Then copy in it the file called 4.2.0 from where you've just clone the DCM_4.2.0
 mkdir -p  modules/DCM
 cp   DCM/DCM_4.2.0/MODULES/4.2.0  .
 ```
-Open it, and replace the name ZZMYDIR by the full path you have just created above <br>
+Open it, and replace the name MYDCMDIR by the full path where DCM_4.2.0 have been cloned (looks like $HOMEDIR/DCM )<br>
 
 In the header of your .bashrc file add the 2 lines below and change the yourlogin word (as the root path as well, i.e. /hom1/datahome if different in your case): <br>
 ```
