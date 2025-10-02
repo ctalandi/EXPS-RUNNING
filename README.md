@@ -49,7 +49,8 @@ Still in your home directory, at the root of your login, create a directory call
 Then copy in it the file called 4.2.0 from where you've just clone the DCM_4.2.0 structure: <br>
 ```
 mkdir -p  modules/DCM
-cp   DCM/DCM_4.2.0/MODULES/4.2.0  .
+cd modules/DCM
+cp DCM/DCM_4.2.0/MODULES/4.2.0  .
 ```
 Open it, and replace the name MYDCMDIR by the full path where DCM_4.2.0 have been cloned (looks like $HOMEDIR/DCM )<br>
 
