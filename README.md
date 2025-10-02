@@ -50,7 +50,7 @@ Then copy in it the file called 4.2.0 from where you've just clone the DCM_4.2.0
 ```
 mkdir -p  modules/DCM
 cd modules/DCM
-cp DCM/DCM_4.2.0/MODULES/4.2.0  .
+cp ../../DCM/DCM_4.2.0/MODULES/4.2.0  .
 ```
 Open it, and replace the name MYDCMDIR by the full path where DCM_4.2.0 have been cloned (looks like $HOMEDIR/DCM )<br>
 
@@ -75,7 +75,14 @@ export WORKDIR=$SCRATCH
 - UDIR is the folder where the configuration will be built and from where the compilation process is launched <br>
 - PDIR corresponds to the area from which the simulation is handled <br>
 
-Then, last step of this installation, source your .bashrc  to take into account the new changes above <br>
+Then the NEMO code should also be downloaded. Go under DCM/DCM_4.2.0/DCMTOOLS/NEMOREF and execute the sript getnemoref.sh <br>
+
+```
+./getnemoref.sh
+```
+Once finished, a sub-directory called nemo_4.2.0 is present. It contains all source code from the official NEMO release (the one mentioned in the script getnemoref.sh).<br>
+
+Finally, last step of this installation, source your .bashrc  to take into account the new changes above <br>
 ```
 source .bashrc
 ```
