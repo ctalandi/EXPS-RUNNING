@@ -200,6 +200,12 @@ Edit the makefile and check that the CASE name corresponds to the current experi
 
 Now install the configuration, i.e. build the WORK folder which includes all good links to the NEMO code including the ones in the MY_SRC<br>
 and launch the compilation itself:<br>
+CAUTION: make sure that the following 3 librairies are loaded before launching the compilation:<br>
+- NETCDF-test/4.3.3.1-mpt217-intel2018<br>
+- intel-fc-18/18.0.1.163<br>
+- mpt/2.17<br>
+if not, type > module load NETCDF-test/4.3.3.1-mpt217-intel2018 or better add it once for all in your .bashrc file<br>
+NB: These librairies might change depending the target computer on which NEMO is planned to be used, you should adapt them to your own computing environment. <br>
 ```
 make install
 ```
@@ -237,17 +243,10 @@ CONFIGS/CONFIG_CREG025.L75/CREG025.L75-NEMO420
 └── zdftke.F90 -> src/MY_SRC/zdftke.F90
 ```
 
-Then launch the compilation itself:<br>
+Then launch the compilation itself (this step might be needed only to create the links to the binary from the EXE sub-directory:<br>
 ```
 make
 ```
-CAUTION: make sure that the following 3 modules are loaded before launching the compilation:<br>
-- NETCDF-test/4.3.3.1-mpt217-intel2018<br>
-- intel-fc-18/18.0.1.163<br>
-- mpt/2.17<br>
-if not, type > module load NETCDF-test/4.3.3.1-mpt217-intel2018 or better add it once for all in your .bashrc file<br>
-NB: These librairies might be evolve depending the NEMO version used, you should adapt them to your own computing environment. <br>
-
 At the end of the compilation, the NEMO executable should be stored in the EXE sub-directory as detailed below.<br>
 
 Under the  PDIR  directory:<br>
