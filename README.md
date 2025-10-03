@@ -196,6 +196,8 @@ cp MYDIR/RUNNING-CREG025.L75/CPP.keys  $UDIR/CONFIG_CREG025.L75/CREG025.L75-NEMO
 ```
 The makefile set all usefull information for the compilation while the CPP.keys file, set the cpp keys specific to this experiment.<br>
 
+Edit the makefile and check that the CASE name corresponds to the current experiment name your are building, for instance if your build the CREG025.L75-MYEXP experiment, the variable CASE must be set to MYEXP.<br>
+
 Now install the configuration, i.e. build the WORK folder which includes all good links to the NEMO code including the ones in the MY_SRC<br>
 and launch the compilation itself:<br>
 ```
