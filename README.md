@@ -199,7 +199,7 @@ The makefile set all usefull information for the compilation while the CPP.keys 
 Edit the makefile and check that the CASE name corresponds to the current experiment name your are building, for instance if your build the CREG025.L75-MYEXP experiment, the variable CASE must be set to MYEXP.<br>
 
 Now install the configuration, i.e. build the WORK folder which includes all good links to the NEMO code including the ones in the MY_SRC<br>
-and launch the compilation itself:<br>
+and launch the compilation itself. This is done with the make command associated with the install keyword:<br>
 CAUTION: make sure that the following 3 librairies are loaded before launching the compilation:<br>
 - NETCDF-test/4.3.3.1-mpt217-intel2018<br>
 - intel-fc-18/18.0.1.163<br>
@@ -210,7 +210,7 @@ NB: These librairies might change depending the target computer on which NEMO is
 make install
 ```
 
-The result should be  similar to this:<br>
+The result should look like this in the CONFIGS/CONFIG_CREG025.L75/CREG025.L75-NEMO420 directory and the binary has been created:<br>
 ```
 CONFIGS/CONFIG_CREG025.L75/CREG025.L75-NEMO420
 ├── *.*0 -> ext/src/IOIPSL/*.*0
@@ -242,12 +242,11 @@ CONFIGS/CONFIG_CREG025.L75/CREG025.L75-NEMO420
 ├── WORK -> /home1/datawork/ctalandi/WCREG025.L75-NEMO420/cfgs/CREG025.L75-NEMO420/WORK
 └── zdftke.F90 -> src/MY_SRC/zdftke.F90
 ```
-
-Then launch the compilation itself (this step might be needed only to create the links to the binary from the EXE sub-directory:<br>
+Now, to create the links to the binary from the EXE sub-directory, type again the make command alone :<br>
 ```
 make
 ```
-At the end of the compilation, the NEMO executable should be stored in the EXE sub-directory as detailed below.<br>
+Now, he NEMO binary (nemo.exe) should be a link in the EXE sub-directory as detailed below.<br>
 
 Under the  PDIR  directory:<br>
 ```
@@ -256,8 +255,8 @@ RUNS/RUN_CREG025.L75/CREG025.L75-NEMO420
 └── EXE
 ```
 
-- EXE: location of the nemo4.exe  binary resulting from the compilation process<br>
-- CTL: location where the user is going to launch numerical experiments<br>
+- EXE: location of the nemo4.exe binary resulting from the last command make <br>
+- CTL: location from where the user is going to launch numerical experiments<br>
 
 To handle numerical experiments, few files, scripts have to be installed as it is detailed now<br>
 The result should be something similar to this:<br>
